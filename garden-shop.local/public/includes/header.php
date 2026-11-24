@@ -7,18 +7,9 @@
     <meta name="description" content="Интернет-магазин растений «Зелёный Двор». Подбор по почве, освещённости и климату.">
     <title>Зелёный Двор — интернет-магазин растений</title>
     <link rel="stylesheet" href="/assets/style.css">
-    
+
     <!-- ЖЕСТКИЕ СТИЛИ ДЛЯ УВЕДОМЛЕНИЙ -->
     <style>
-        header { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; }
-        .logo-link { text-decoration: none; color: white; display: flex; align-items: center; gap: 8px; font-size: 1.3rem; font-weight: bold; }
-        .logo-link:hover { opacity: 0.8; }
-        nav { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-        nav a { color: white; text-decoration: none; font-weight: bold; font-size: 0.95rem; padding: 8px 15px; border-radius: 6px; background: rgba(255, 255, 255, 0.15); transition: background 0.2s; }
-        nav a:hover { background: rgba(255, 255, 255, 0.3); text-decoration: none; }
-        nav a.admin-link { background: #ffb300; color: #333; border: 1px solid #e6a100; }
-        nav a.admin-link:hover { background: #ffa000; }
-
         /* Стили для всплывающих уведомлений */
         #custom-toast-container {
             position: fixed !important;
@@ -49,27 +40,30 @@
     </style>
 </head>
 <body>
-<header>
-    <a href="/index.php" class="logo-link">
-        <span>🌿</span> Зелёный Двор
-    </a>
-    
-    <nav>
-        <a href="/index.php">Каталог</a>
-        <a href="/quiz.php">Подберите растение</a>
-        <a href="/cart.php">🛒 Корзина (<span id="cart-count">0</span>)</a>
-        
-        <?php $u = currentUser(); ?>
-        <?php if ($u): ?>
-            <a href="/account.php">👤 <?= e($u['full_name'] ?: $u['email']) ?></a>
-            <?php if ($u['is_admin']): ?>
-                <a href="/admin.php" class="admin-link">⚙️ Админ</a>
+<header class="site-header">
+    <div class="site-header__inner">
+        <a href="/index.php" class="brand" aria-label="Зелёный Двор — на главную">
+            <img class="brand__logo" src="/assets/logo.webp" alt="">
+            <span class="brand__text"><strong>Зелёный Двор</strong><span>Магазин растений</span></span>
+        </a>
+
+        <nav class="site-nav" aria-label="Основная навигация">
+            <a href="/index.php">Каталог</a>
+            <a href="/quiz.php">Подобрать растение</a>
+            <a href="/cart.php" class="site-nav__cart">Корзина <span id="cart-count" class="site-nav__count">0</span></a>
+
+            <?php $u = currentUser(); ?>
+            <?php if ($u): ?>
+                <a href="/account.php"><?= e($u['full_name'] ?: $u['email']) ?></a>
+                <?php if ($u['is_admin']): ?>
+                    <a href="/admin.php" class="admin-link">Админ</a>
+                <?php endif; ?>
+                <a href="/logout.php">Выйти</a>
+            <?php else: ?>
+                <a href="/login.php">Войти</a>
             <?php endif; ?>
-            <a href="/logout.php">Выйти</a>
-        <?php else: ?>
-            <a href="/login.php">Войти</a>
-        <?php endif; ?>
-    </nav>
+        </nav>
+    </div>
 </header>
 
 <!-- Скрипт уведомлений встроен прямо сюда, чтобы обойти кеш -->
@@ -93,7 +87,7 @@
         toast.className = 'custom-toast';
         // Убираем эмодзи, если хотим строгий вид, или оставляем
         toast.textContent = message;
-        
+
         container.appendChild(toast);
 
         // 4. Запускаем анимацию появления
