@@ -46,6 +46,7 @@ include __DIR__ . '/includes/header.php';
         <button type="submit" class="btn-primary" style="width:100%; margin-top:15px;">Войти</button>
     </form>
 
+    <p style="margin-top:15px;"><a href="/forgot_password.php">Забыли пароль?</a></p>
     <p style="margin-top:15px;">Нет аккаунта? <a href="/register.php">Зарегистрироваться</a></p>
 </div>
 
